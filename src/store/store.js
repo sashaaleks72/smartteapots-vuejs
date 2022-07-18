@@ -96,7 +96,7 @@ const store = createStore({
             //     "GET,PUT,POST,DELETE";
             let response = await axios.get("/auth/google");
             console.log(response);
-
+            console.log(response.data.data.token);
             return dispatch("ATTEMPT", response.data.data.token);
         },
         async ATTEMPT({ commit, state }, token) {
@@ -121,6 +121,7 @@ const store = createStore({
             } catch (e) {
                 commit("SET_TOKEN_TO_STATE", null);
                 commit("SET_USER_TO_STATE", null);
+                localStorage.removeItem("token");
             }
         },
         SIGN_OUT({ commit }) {
