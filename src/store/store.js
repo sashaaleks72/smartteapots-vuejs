@@ -95,7 +95,7 @@ const store = createStore({
             // axios.defaults.headers.common["Access-Control-Allow-Methods"] =
             //     "GET,PUT,POST,DELETE";
             let response = await axios.get("/auth/google");
-            return dispatch("ATTEMPT", response.data.data.token);
+            console.log(response);
         },
         async ATTEMPT({ commit, state }, token) {
             if (token) {
