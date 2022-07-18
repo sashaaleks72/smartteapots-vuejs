@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
+import { useRouter } from "vue-router";
 
 const store = createStore({
     state: {
@@ -94,10 +95,13 @@ const store = createStore({
             // ] = true;
             // axios.defaults.headers.common["Access-Control-Allow-Methods"] =
             //     "GET,PUT,POST,DELETE";
-            let response = await axios.get("/auth/google");
-            console.log(response);
 
-            return dispatch("ATTEMPT", response.data.data.token);
+            let resUrl = await axios.get("/auth/google").responseURL;
+            let token = await axios.get(resUrl);
+
+            console.log(token);
+
+            return dispatch("ATTEMPT", token);
         },
         async ATTEMPT({ commit, state }, token) {
             if (token) {
