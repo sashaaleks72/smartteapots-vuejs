@@ -96,6 +96,8 @@ const store = createStore({
             //     "GET,PUT,POST,DELETE";
             let response = await axios.get("/auth/google");
             console.log(response);
+
+            return dispatch("ATTEMPT", response.data.data.token);
         },
         async ATTEMPT({ commit, state }, token) {
             if (token) {
