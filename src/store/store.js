@@ -1,6 +1,5 @@
 import { createStore } from "vuex";
 import axios from "axios";
-import { useRouter } from "vue-router";
 
 const store = createStore({
     state: {
