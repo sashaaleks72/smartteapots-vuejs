@@ -7,11 +7,7 @@
                 </div>
 
                 <div class="product-info__element">
-                    <img
-                        :src="props.product_element.img"
-                        alt="teapot"
-                        width="200"
-                    />
+                    <img :src="teapot.img" alt="teapot" width="200" />
                 </div>
 
                 <div class="product-info__element">
