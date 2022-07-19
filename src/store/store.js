@@ -116,8 +116,10 @@ const store = createStore({
             }
 
             try {
+                console.log("Hello!");
                 let response = await axios.get("/auth/user");
                 commit("SET_USER_TO_STATE", response.data.data);
+                console.log("Hello!");
             } catch (e) {
                 commit("SET_TOKEN_TO_STATE", null);
                 commit("SET_USER_TO_STATE", null);
