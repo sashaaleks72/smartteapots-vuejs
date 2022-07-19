@@ -82,19 +82,22 @@ onMounted(() => {
 let teapot = computed(() => store.getters.TEAPOT);
 
 function addToCart() {
+    console.log(teapot);
     store.dispatch("ADD_TO_CART", teapot);
 }
 </script>
 
 <style>
-.product-change__body {
+.product-info__body {
     padding: 234px 137px 150px 55px;
 }
 
-.product-change__form {
+.product-info__element {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+}
+
+.info-el__name {
+    font-weight: bold;
 }
 
 .submit-btn {
@@ -103,22 +106,6 @@ function addToCart() {
     min-width: 200px;
     font-family: inherit;
     border-radius: 20px;
-}
-
-.input {
-    height: 20px;
-    font-size: 16px;
-    font-family: inherit;
-    border: 1px solid black;
-    border-radius: 5px;
-}
-
-.product-change__input {
-    margin-left: 5px;
-}
-
-.product-change__block {
-    margin-bottom: 20px;
 }
 
 .product-change__header {

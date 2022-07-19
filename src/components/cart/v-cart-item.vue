@@ -7,7 +7,7 @@
             <div class="item-order__image">
                 <img
                     :src="cart_item_data.img"
-                    alt="order"
+                    alt="teapot"
                     width="142"
                     height="174"
                 />
