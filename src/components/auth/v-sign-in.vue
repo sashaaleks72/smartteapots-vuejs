@@ -44,6 +44,7 @@
                             <img src="@/images/auth/facebook.svg" width="38" />
                         </div>
                     </div>
+                    <GoogleLogin :callback="callback" prompt />
                 </form>
                 <router-link
                     style="float: right; margin-top: 20px"
@@ -59,6 +60,7 @@
 import { useStore } from "vuex";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+import { decodeCredential } from "vue3-google-login";
 
 const store = useStore();
 const router = useRouter();
@@ -67,6 +69,11 @@ let form = ref({
     email: "",
     password: "",
 });
+
+const callback = (response) => {
+    const userData = decodeCredential(response.credential);
+    console.log("Handle the response", userData);
+};
 
 function signInByGoogle() {
     store.dispatch("SIGN_IN_BY_GOOGLE").then(() => {

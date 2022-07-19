@@ -1,5 +1,6 @@
 import { createStore } from "vuex";
 import axios from "axios";
+// import router from "@/router/router.js";
 
 const store = createStore({
     state: {
@@ -88,15 +89,21 @@ const store = createStore({
             throw new Error();
         },
         async SIGN_IN_BY_GOOGLE({ dispatch }) {
-            // axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
-            // axios.defaults.headers.common[
-            //     "Access-Control-Allow-Credentials"
-            // ] = true;
-            // axios.defaults.headers.common["Access-Control-Allow-Methods"] =
-            //     "GET,PUT,POST,DELETE";
-            let response = await axios.get("/auth/google");
-            console.log(response);
-            console.log(response.data.data.token);
+            axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
+            axios.defaults.headers.common[
+                "Access-Control-Allow-Credentials"
+            ] = true;
+            axios.defaults.headers.common["Access-Control-Allow-Methods"] =
+                "GET,PUT,POST,DELETE";
+
+            window.open(
+                "https://smart-teapot.herokuapp.com/auth/google",
+                "",
+                `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no`
+            );
+
+            let response;
+
             return dispatch("ATTEMPT", response.data.data.token);
         },
         async ATTEMPT({ commit, state }, token) {
@@ -153,9 +160,7 @@ const store = createStore({
                     .then((teapots) => {
                         commit(
                             "SET_MAX_PAGE_TO_STATE",
-                            Math.ceil(
-                                teapots.data.data.length / 8
-                            )
+                            Math.ceil(teapots.data.data.length / 8)
                         );
                     })
                     .catch((error) => error);
