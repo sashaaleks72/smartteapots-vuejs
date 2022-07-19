@@ -116,10 +116,8 @@ const store = createStore({
             }
 
             try {
-                console.log("Hello!");
                 let response = await axios.get("/auth/user");
                 commit("SET_USER_TO_STATE", response.data.data);
-                console.log("Hello!");
             } catch (e) {
                 commit("SET_TOKEN_TO_STATE", null);
                 commit("SET_USER_TO_STATE", null);
@@ -131,26 +129,31 @@ const store = createStore({
             commit("SET_USER_TO_STATE", null);
             localStorage.removeItem("token");
         },
-        async GET_TEAPOTS_BY_FILTER({ commit }, options) {
-            const { sortBy, howSort, page } = options;
+        async GET_TEAPOTS({ commit }, options) {
+            const { sortBy, howSort, page, manufacturerName } = options;
+
+            let url = `/teapots?page=${page}&limit=8`;
+
+            if (sortBy != undefined)
+                url += `&sortBy=${sortBy}&howSort=${howSort}`;
+            if (manufacturerName != undefined)
+                url += `&manufacturerName=${manufacturerName}`;
 
             return await axios
-                .get(
-                    `/teapots?page=${page}&limit=8&sortBy=${sortBy}&howSort=${howSort}`
-                )
+                .get(url)
                 .then((teapots) => {
                     commit("SET_TEAPOTS_TO_STATE", teapots.data.data);
                 })
                 .catch((error) => error);
         },
-        async GET_TEAPOTS({ commit }, page) {
-            return await axios
-                .get(`/teapots?page=${page}&limit=8`)
-                .then((teapots) => {
-                    commit("SET_TEAPOTS_TO_STATE", teapots.data.data);
-                })
-                .catch((error) => error);
-        },
+        // async GET_TEAPOTS({ commit }, options) {
+        //     return await axios
+        //         .get(`/teapots?page=${page}&limit=8`)
+        //         .then((teapots) => {
+        //             commit("SET_TEAPOTS_TO_STATE", teapots.data.data);
+        //         })
+        //         .catch((error) => error);
+        // },
         async GET_MAX_PAGE({ commit }) {
             return await axios
                 .get(`/teapots/all-teapots`)

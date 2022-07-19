@@ -33,7 +33,7 @@
             </div>
             <div class="catalog__body">
                 <MyCatalogItem
-                    v-for="teapot in selectedManufacturer.teapots || teapots"
+                    v-for="teapot in teapots"
                     :key="teapot.id"
                     v-bind:product_element="teapot"
                     @addToCart="addToCart"
@@ -69,14 +69,20 @@ let page = ref(1);
 let quanOfPages = computed(() => store.getters.GET_MAX_PAGE);
 let selectedFilter = ref("default");
 
+let options = {
+    sortBy: undefined,
+    howSort: undefined,
+    page: page.value,
+    manufacturerName: undefined,
+};
+
 onMounted(() => {
-    store.dispatch("GET_TEAPOTS", page.value);
+    store.dispatch("GET_TEAPOTS", options);
     store.dispatch("GET_MANUFACTURERS");
     store.dispatch("GET_MAX_PAGE");
 });
 
 let selectedManufacturer = ref("All");
-let options = undefined;
 
 function onChangeFilter() {
     let splittedFilter = selectedFilter.value.split(" ");
@@ -85,12 +91,13 @@ function onChangeFilter() {
         sortBy: splittedFilter[0],
         howSort: splittedFilter[1],
         page: page.value,
+        manufacturerName: selectedManufacturer.value,
     };
 
-    if (options.sortBy == "default") store.dispatch("GET_TEAPOTS", page.value);
-    else {
-        store.dispatch("GET_TEAPOTS_BY_FILTER", options);
-    }
+    if (options.sortBy == "default") options.sortBy = undefined;
+    if (options.manufacturerName == "All") options.manufacturerName = undefined;
+
+    store.dispatch("GET_TEAPOTS", options);
 }
 
 function addToCart(data) {
@@ -109,24 +116,18 @@ function deleteProduct(product) {
 }
 
 function prevPage() {
-    if (page.value > 1) page.value--;
-    if (options == undefined || options.sortBy == "default")
-        store.dispatch("GET_TEAPOTS", page.value);
-    else {
+    if (page.value > 1) {
+        page.value--;
         options.page = page.value;
-        store.dispatch("GET_TEAPOTS_BY_FILTER", options);
+        store.dispatch("GET_TEAPOTS", options);
     }
 }
 
 async function nextPage() {
     if (page.value < quanOfPages.value) {
         page.value++;
-        if (options == undefined || options.sortBy == "default")
-            store.dispatch("GET_TEAPOTS", page.value);
-        else {
-            options.page = page.value;
-            store.dispatch("GET_TEAPOTS_BY_FILTER", options);
-        }
+        options.page = page.value;
+        store.dispatch("GET_TEAPOTS", options);
     }
 }
 </script>
