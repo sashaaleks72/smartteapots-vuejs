@@ -146,14 +146,6 @@ const store = createStore({
                 })
                 .catch((error) => error);
         },
-        // async GET_TEAPOTS({ commit }, options) {
-        //     return await axios
-        //         .get(`/teapots?page=${page}&limit=8`)
-        //         .then((teapots) => {
-        //             commit("SET_TEAPOTS_TO_STATE", teapots.data.data);
-        //         })
-        //         .catch((error) => error);
-        // },
         async GET_MAX_PAGE({ commit }) {
             return await axios
                 .get(`/teapots/all-teapots`)
@@ -362,28 +354,3 @@ const store = createStore({
 });
 
 export default store;
-
-/* 
-mutations: {
-        SET_TEAPOTS_TO_STATE: (state, teapots) => {
-            state.teapots = teapots;
-        },
-    },
-    actions: {
-        GET_TEAPOTS({ commit }) {
-            return axios("http://localhost:5000/teapots", {
-                method: "GET",
-            })
-                .then((teapots) => {
-                    commit("SET_TEAPOTS_TO_STATE", teapots.data);
-                    return teapots;
-                })
-                .catch((error) => error);
-        },
-    },
-    getters: {
-        TEAPOTS(state) {
-            return state.teapots;
-        },
-    },
-*/

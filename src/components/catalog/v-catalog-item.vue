@@ -23,7 +23,18 @@
                     />
                 </div>
             </template>
-            <img :src="props.product_element.img" alt="teapot" width="200" />
+            <router-link
+                :to="{
+                    name: 'product-info',
+                    params: { id: props.product_element.id },
+                }"
+            >
+                <img
+                    :src="props.product_element.img"
+                    alt="teapot"
+                    width="200"
+                />
+            </router-link>
         </div>
         <div class="item-catalog__title">
             {{ props.product_element.title }}

@@ -6,6 +6,7 @@ import MakeAnOrder from "../views/v-orderPage";
 import Profile from "../views/v-profilePage";
 import Orders from "../views/v-userOrdersPage";
 import ChangeProduct from "../views/v-changeProductPage";
+import ProductInfo from "../views/v-productInfoPage";
 import AddProduct from "../views/v-addProductPage";
 import AdminOrders from "../views/v-adminOrdersPage";
 import store from "@/store/store.js";
@@ -71,6 +72,11 @@ export default createRouter({
 
                 next();
             },
+        },
+        {
+            path: "/product-info/:id",
+            name: "product-info",
+            component: ProductInfo,
         },
         {
             path: "/add-product",
