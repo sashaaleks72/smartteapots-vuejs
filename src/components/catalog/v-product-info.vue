@@ -6,7 +6,7 @@
                     <b>Product info</b>
                 </div>
 
-                <div class="product-info__element">
+                <div class="product-info__element-img">
                     <img :src="teapot.img" alt="teapot" width="200" />
                 </div>
 
@@ -82,22 +82,23 @@ onMounted(() => {
 let teapot = computed(() => store.getters.TEAPOT);
 
 function addToCart() {
-    console.log(teapot);
-    store.dispatch("ADD_TO_CART", teapot);
+    store.dispatch("ADD_TO_CART", teapot.value);
 }
 </script>
 
 <style>
 .product-info__body {
-    padding: 234px 137px 150px 55px;
+    padding: 234px 137px 100px 55px;
 }
 
 .product-info__element {
     display: flex;
+    margin-bottom: 5px;
 }
 
 .info-el__name {
     font-weight: bold;
+    margin-right: 5px;
 }
 
 .submit-btn {
@@ -108,9 +109,9 @@ function addToCart() {
     border-radius: 20px;
 }
 
-.product-change__header {
+.product-info__header {
     font-size: 30px;
-    margin-bottom: 100px;
+    margin-bottom: 50px;
     text-align: center;
 }
 </style>

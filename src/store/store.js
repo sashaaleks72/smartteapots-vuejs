@@ -146,13 +146,26 @@ const store = createStore({
                 })
                 .catch((error) => error);
         },
-        async GET_MAX_PAGE({ commit }) {
+        async GET_MAX_PAGE({ commit }, option) {
+            if (option == "All")
+                return await axios
+                    .get(`/teapots/all-teapots`)
+                    .then((teapots) => {
+                        commit(
+                            "SET_MAX_PAGE_TO_STATE",
+                            Math.ceil(
+                                teapots.data.data.length / 8
+                            )
+                        );
+                    })
+                    .catch((error) => error);
+
             return await axios
-                .get(`/teapots/all-teapots`)
-                .then((teapots) => {
+                .get(`/manufacturers/${option}`)
+                .then((manufacturers) => {
                     commit(
                         "SET_MAX_PAGE_TO_STATE",
-                        Math.ceil(teapots.data.data.length / 8)
+                        Math.ceil(manufacturers.data.data.teapots.length / 8)
                     );
                 })
                 .catch((error) => error);

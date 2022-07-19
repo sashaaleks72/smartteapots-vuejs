@@ -80,12 +80,14 @@ let options = {
 onMounted(() => {
     store.dispatch("GET_TEAPOTS", options);
     store.dispatch("GET_MANUFACTURERS");
-    store.dispatch("GET_MAX_PAGE");
+    store.dispatch("GET_MAX_PAGE", "All");
 });
 
 let selectedManufacturer = ref("All");
 
 function onChangeFilter() {
+    store.dispatch("GET_MAX_PAGE", selectedManufacturer.value.id || "All");
+
     let splittedFilter = selectedFilter.value.split(" ");
 
     options = {
