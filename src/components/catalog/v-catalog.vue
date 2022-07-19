@@ -4,7 +4,11 @@
             <div class="catalog__title title">Каталог товаров</div>
             <div class="drop-down-list__container">
                 <div class="catalog__drop-down-list-1">
-                    <select class="select-css" v-model="selectedManufacturer">
+                    <select
+                        class="select-css"
+                        @change="onChangeFilter"
+                        v-model="selectedManufacturer"
+                    >
                         <option>All</option>
                         <option
                             v-for="manufacturer in manufacturers"
