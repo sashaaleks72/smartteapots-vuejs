@@ -40,10 +40,7 @@
                     @deleteProduct="deleteProduct"
                 />
             </div>
-            <div
-                class="catalog__pagination pagination"
-                v-if="!selectedManufacturer.teapots"
-            >
+            <div class="catalog__pagination pagination">
                 <div @click="prevPage" class="pagination__prev">&#60;--</div>
                 <div class="pagination__value">
                     {{ page }} / {{ quanOfPages }}
@@ -91,7 +88,7 @@ function onChangeFilter() {
         sortBy: splittedFilter[0],
         howSort: splittedFilter[1],
         page: page.value,
-        manufacturerName: selectedManufacturer.value,
+        manufacturerName: selectedManufacturer.value.name,
     };
 
     if (options.sortBy == "default") options.sortBy = undefined;
