@@ -3,7 +3,14 @@ import App from "./App.vue";
 import router from "./router/router.js";
 import store from "./store/store.js";
 import axios from "axios";
-import vue3GoogleLogin from "vue3-google-login";
+import gAuthPlugin from "vue3-google-oauth2";
+
+const gauthOption = {
+    clientId:
+        "605349196075-9s5jq103ivr742jr3hstqj92ctik1o5q.apps.googleusercontent.com",
+    scope: "profile email",
+    plugin_name: "SmartTeapots",
+};
 
 axios.defaults.baseURL = "https://smart-teapot.herokuapp.com/";
 
@@ -11,11 +18,8 @@ store.dispatch("ATTEMPT", localStorage.getItem("token")).then(() => {
     store.dispatch("SET_CART_FROM_LOCAL").then(() => {
         createApp(App)
             .use(store)
+            .use(gAuthPlugin, gauthOption)
             .use(router)
-            .use(vue3GoogleLogin, {
-                clientId:
-                    "7015524262-r9f9t0gr9b8u9mmvi3dthggfatiinugp.apps.googleusercontent.com",
-            })
             .mount("#app");
     });
 });

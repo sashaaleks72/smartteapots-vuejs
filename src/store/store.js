@@ -88,21 +88,8 @@ const store = createStore({
 
             throw new Error();
         },
-        async SIGN_IN_BY_GOOGLE({ dispatch }) {
-            axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
-            axios.defaults.headers.common[
-                "Access-Control-Allow-Credentials"
-            ] = true;
-            axios.defaults.headers.common["Access-Control-Allow-Methods"] =
-                "GET,PUT,POST,DELETE";
-
-            window.open(
-                "https://smart-teapot.herokuapp.com/auth/google",
-                "",
-                `toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no`
-            );
-
-            let response;
+        async SIGN_IN_BY_GOOGLE({ dispatch }, user) {
+            let response = await axios.post("/auth/sign-with-google", user);
 
             return dispatch("ATTEMPT", response.data.data.token);
         },
@@ -130,6 +117,10 @@ const store = createStore({
                 commit("SET_USER_TO_STATE", null);
                 localStorage.removeItem("token");
             }
+        },
+        async GET_USER({ commit }){
+            let response = await axios.get("/auth/user");
+                commit("SET_USER_TO_STATE", response.data.data);
         },
         SIGN_OUT({ commit }) {
             commit("SET_TOKEN_TO_STATE", null);

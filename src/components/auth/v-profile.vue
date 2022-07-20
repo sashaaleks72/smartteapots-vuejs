@@ -4,7 +4,11 @@
             <div class="profile__body">
                 <div class="profile__header"><b>Your profile</b></div>
 
-                <form @submit.prevent="submit" class="profile__form">
+                <form
+                    @submit.prevent="submit"
+                    class="profile__form"
+                    v-if="user"
+                >
                     <div class="profile__block">
                         <label for="firstName">First name:</label>
                         <input
@@ -72,12 +76,16 @@
 
 <script setup>
 import { useStore } from "vuex";
-import { ref, computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
 
 const store = useStore();
 const router = useRouter();
 let user = ref(computed(() => store.getters.USER));
+
+onMounted(() => {
+    store.dispatch("GET_USER");
+});
 
 function submit() {
     let changedUser = {

@@ -31,20 +31,8 @@
                         <button type="submit" class="submit-btn button">
                             Sign in
                         </button>
-                        <div
-                            class="signin-btns__google"
-                            @click="signInByGoogle"
-                        >
-                            <img src="@/images/auth/google.svg" width="35" />
-                        </div>
-                        <div
-                            class="signin-btns__facebook"
-                            @click="signInByGoogle"
-                        >
-                            <img src="@/images/auth/facebook.svg" width="38" />
-                        </div>
+                        <GoogleSignIn />
                     </div>
-                    <GoogleLogin :callback="callback" prompt />
                 </form>
                 <router-link
                     style="float: right; margin-top: 20px"
@@ -60,7 +48,7 @@
 import { useStore } from "vuex";
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-import { decodeCredential } from "vue3-google-login";
+import GoogleSignIn from "@/components/auth/v-sign-in-google";
 
 const store = useStore();
 const router = useRouter();
@@ -70,18 +58,13 @@ let form = ref({
     password: "",
 });
 
-const callback = (response) => {
-    const userData = decodeCredential(response.credential);
-    console.log("Handle the response", userData);
-};
-
-function signInByGoogle() {
-    store.dispatch("SIGN_IN_BY_GOOGLE").then(() => {
-        router.replace({
-            name: "home",
-        });
-    });
-}
+// function signInByGoogle() {
+//     store.dispatch("SIGN_IN_BY_GOOGLE").then(() => {
+//         router.replace({
+//             name: "home",
+//         });
+//     });
+// }
 
 function submit() {
     store
