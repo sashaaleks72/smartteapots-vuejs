@@ -7,7 +7,7 @@ import gAuthPlugin from "vue3-google-oauth2";
 
 const gauthOption = {
     clientId:
-        "605349196075-9s5jq103ivr742jr3hstqj92ctik1o5q.apps.googleusercontent.com",
+        "605349196075-0lv5tb7v29ervndiadefar8rrjmbc1ft.apps.googleusercontent.com",
     scope: "profile email",
     plugin_name: "SmartTeapots",
 };
