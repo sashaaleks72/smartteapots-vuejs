@@ -118,9 +118,9 @@ const store = createStore({
                 localStorage.removeItem("token");
             }
         },
-        async GET_USER({ commit }){
+        async GET_USER({ commit }) {
             let response = await axios.get("/auth/user");
-                commit("SET_USER_TO_STATE", response.data.data);
+            commit("SET_USER_TO_STATE", response.data.data);
         },
         SIGN_OUT({ commit }) {
             commit("SET_TOKEN_TO_STATE", null);
@@ -281,9 +281,9 @@ const store = createStore({
             product.quantity = 1;
 
             if (state.cartItems.length > 0) {
-                for (var item of state.cartItems) {
-                    if (item.id === product.id) {
-                        item.quantity += 1;
+                for (let i = 0; i < state.cartItems.length; i++) {
+                    if (state.cartItems[i].id == product.id) {
+                        state.cartItems[i].quantity += 1;
                     } else {
                         if (!state.cartItems.includes(product))
                             state.cartItems.push(product);

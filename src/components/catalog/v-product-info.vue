@@ -75,11 +75,11 @@ const router = useRouter();
 
 let teapotId = ref(router.currentRoute.value.params.id);
 
+let teapot = computed(() => store.getters.TEAPOT);
+
 onMounted(() => {
     store.dispatch("GET_TEAPOT_BY_ID", teapotId.value);
 });
-
-let teapot = computed(() => store.getters.TEAPOT);
 
 function addToCart() {
     store.dispatch("ADD_TO_CART", teapot.value);
