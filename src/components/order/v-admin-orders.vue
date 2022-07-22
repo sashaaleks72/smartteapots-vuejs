@@ -7,7 +7,11 @@
                     <h3 style="font-size: 30px">Orders:</h3>
                 </div>
                 <table class="table" v-for="order in orders" :key="order.id">
-                    <div><b>Order id:</b> {{ order.id }}</div>
+                    <div><b>Order date:</b> {{ order.orderDate }}</div>
+                    <div>
+                        <b>Client:</b> {{ order.user.name }}
+                        {{ order.user.surname }}
+                    </div>
                     <div><b>Status:</b> {{ order.status }}</div>
                     <b>Change status:</b>
                     <select class="select-css" v-model="status">
