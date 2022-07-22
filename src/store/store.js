@@ -278,18 +278,24 @@ const store = createStore({
             state.deliveries = deliveries;
         },
         SET_CART_ITEMS_TO_STATE: (state, product) => {
-            product.quantity = 1;
-
             if (state.cartItems.length > 0) {
+                let check = false;
+
                 for (let i = 0; i < state.cartItems.length; i++) {
                     if (state.cartItems[i].id == product.id) {
-                        state.cartItems[i].quantity += 1;
-                    } else {
-                        if (!state.cartItems.includes(product))
-                            state.cartItems.push(product);
+                        check = true;
+                        state.cartItems[i].quantity++;
+                        console.log(state.cartItems[i].quantity);
+                        break;
                     }
                 }
+
+                if (!check) {
+                    product.quantity = 1;
+                    state.cartItems.push(product);
+                }
             } else {
+                product.quantity = 1;
                 state.cartItems.push(product);
             }
 

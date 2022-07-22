@@ -64,7 +64,8 @@ const emit = defineEmits(["addToCart", "deleteProduct", "changeProduct"]);
 let isAdmin = computed(() => store.getters.ADMIN);
 
 function addToCart() {
-    emit("addToCart", props.product_element);
+    console.log(props.product_element.value);
+    store.dispatch("ADD_TO_CART", props.product_element);
 }
 
 function deleteProduct() {

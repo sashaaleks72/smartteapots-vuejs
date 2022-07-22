@@ -40,7 +40,6 @@
                     v-for="teapot in teapots"
                     :key="teapot.id"
                     v-bind:product_element="teapot"
-                    @addToCart="addToCart"
                     @deleteProduct="deleteProduct"
                 />
             </div>
@@ -101,10 +100,6 @@ function onChangeFilter() {
     if (options.manufacturerName == "All") options.manufacturerName = undefined;
 
     store.dispatch("GET_TEAPOTS", options);
-}
-
-function addToCart(data) {
-    store.dispatch("ADD_TO_CART", data);
 }
 
 function deleteProduct(product) {
