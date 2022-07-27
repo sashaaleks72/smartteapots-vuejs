@@ -12,7 +12,7 @@ const gauthOption = {
     plugin_name: "SmartTeapots",
 };
 
-axios.defaults.baseURL = "https://smart-teapot.herokuapp.com/";
+axios.defaults.baseURL = "https://teapot-store.herokuapp.com/";
 
 store.dispatch("ATTEMPT", localStorage.getItem("token")).then(() => {
     store.dispatch("SET_CART_FROM_LOCAL").then(() => {
